@@ -1,3 +1,5 @@
+const crypto = require("crypto");
+
 class UserManager {
   static #users = [];
   constructor() {}
@@ -7,10 +9,7 @@ class UserManager {
         throw new Error("Name, photo, email are require");
       } else {
         const user = {
-          id:
-            UserManager.#users.length === 0
-              ? 1
-              : UserManager.#users[UserManager.#users.length - 1].id + 1,
+          id: crypto.randomBytes(12).toString("hex"),
           name: data.name,
           photo: data.photo,
           email: data.email,
@@ -36,13 +35,30 @@ class UserManager {
   }
   readOne(id) {
     try {
-      const oneUser = UserManager.#users.find((each) => each.id === Number(id));
+      const oneUser = UserManager.#users.find((each) => each.id === id);
       if (oneUser) {
         return oneUser;
       } else {
         throw new Error("There isnt user with ID" + id);
       }
     } catch (error) {
+      return error.message;
+    }
+  }
+  destroy(id) {
+    try {
+      const one = UserManager.#users.find((each) => each.id === id);
+      if (one) {
+        UserManager.#users = UserManager.#users.filter(
+          (each) => each.id !== id
+        );
+        console.log("Destroyed ID: " + id);
+        return id;
+      } else {
+        throw new Error("There isnt user with ID " + id);
+      }
+    } catch (error) {
+      console.log(error.message);
       return error.message;
     }
   }

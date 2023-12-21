@@ -7,11 +7,7 @@ class ProductManager {
         throw new Error("Title, photo, price, stock are required");
       } else {
         const one = {
-          id:
-            ProductManager.#products.length === 0
-              ? 1
-              : ProductManager.#products[ProductManager.#products.length - 1]
-                  .id + 1,
+          id: crypto.randomBytes(12).toString("hex"),
           title: data.title,
           photo: data.photo,
           price: data.price,
@@ -39,7 +35,7 @@ class ProductManager {
   readOne(id) {
     try {
       const oneProduct = ProductManager.#products.find(
-        (each) => each.id === Number(id)
+        (each) => each.id === id
       );
       if (oneProduct) {
         return oneProduct;
@@ -47,6 +43,25 @@ class ProductManager {
         throw new Error("There is no product");
       }
     } catch (error) {
+      return error.message;
+    }
+  }
+
+  destroy(id) {
+    try {
+      const one = ProductManager.#products.find((each) => each.id === id);
+      if (one) {
+        ProductManager.#products = ProductManager.#products.filter(
+          (each) => each.id !== one.id
+        );
+
+        console.log("Destroy ID: " + id);
+        return one;
+      } else {
+        throw new Error("There is no product");
+      }
+    } catch (error) {
+      console.log(error.message);
       return error.message;
     }
   }
@@ -73,3 +88,6 @@ console.log(productone, producttwo, productthree);
 console.log(products.read());
 console.log(products.readOne(1));
 console.log(products.readOne(10));
+
+console.log(products.destroy(1));
+console.log(products.destroy(10));

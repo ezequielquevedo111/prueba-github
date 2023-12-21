@@ -1,0 +1,23 @@
+[
+  {
+    "id": "c6108cfc651d476f638f0bc1",
+    "title": "eze",
+    "photo": "aaa",
+    "price": 1234,
+    "stock": 45
+  },
+  {
+    "id": "a35c8fb621fa8febedbf7f2f",
+    "title": "eze",
+    "photo": "aaa",
+    "price": 1234,
+    "stock": 45
+  },
+  {
+    "id": "63d0db4a71c11d1e3847995b",
+    "title": "eze",
+    "photo": "aaa",
+    "price": 1234,
+    "stock": 45
+  }
+]
